@@ -5,23 +5,25 @@ import Chart from 'chart.js';
 
 class Status {
   constructor() {
-    /* Part 1 - Finish the constructor
-    - Add references to each of these elements on the page
+    //Part 1 - Finish the constructor
+    //Add references to each of these elements on the page
         this.$experienceTab = document.querySelector('#experienceTab');
-        this.$professionTab = 
-        this.$ageTab = 
-        this.$ageCanvas = 
-        this.$professionCanvas = 
-        this.$experienceCanvas = 
-        this.$loadingIndicator = 
-        this.$tabArea = 
-        this.$chartArea = 
-        this.$errorMessage = 
-    - Add an instance variable for the data that comes back from the service
+        this.$professionTab = document.querySelector('#professionTab');
+        this.$ageTab = document.querySelector('#ageTab');
+        this.$ageCanvas = document.querySelector('#ageChart');
+        this.$professionCanvas = document.querySelector('#professionCanvas');
+        this.$experienceCanvas = document.querySelector('#experienceCanvas')
+        this.$loadingIndicator = document.querySelector('#loadingIndicator');
+        this.$tabArea = document.querySelector('#tabArea');
+        this.$chartArea = document.querySelector('#chartArea');
+        this.$errorMessage =  document.querySelector('#errorMessage');
+    //Add an instance variable for the data that comes back from the service
         this.statisticData;
-    - Call loadData.  It will make the ajax call and create one graph
-    - Call addEventListeners
-    */
+        loadData();
+        addEventListener();
+    //all loadData.  It will make the ajax call and create one graph
+    //Call addEventListeners
+    
   }
 
 /* Part 2 - Write these 2 methods. 

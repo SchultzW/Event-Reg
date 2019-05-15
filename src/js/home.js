@@ -11,16 +11,20 @@ class Home {
   constructor() {
     //Part 2 - Finish the constructor
       // - Add references to each of these elements on the page
-          this.$form = 
+          this.$form = document.getElementsByClassName('form-area');
           this.$username = document.getElementById('username');
           this.$email = document.getElementById('email');
           this.$phone = document.getElementById('phone');
-          this.$age = document.getElementById('')
-          this.$profession = 
-          this.$experience = 
-          this.$comment = 
-          this.$submit = 
-          this.$loadingIndicator = 
+          this.$age = document.getElementById('age')
+          this.$profession = document.getElementById('profession');
+          this.$experience = document.getElementById('expereince')
+          this.$comment = document.getElementById('comment')
+          this.$submit = document.getElementById('submit');
+          this.$loadingIndicator = getElementById('loadingIndicator');
+          this.onFormSubmit=this.onFormSubmit.bind(this);
+          this.form.addEventListener('submit',event => {this.onFormSubmit(event);});
+          this.dataIn=this.dataIn.bind(this);
+          this.resetForm=this.bind(this);
       //- Add a sumbit handler to the form that calls onFormSubmit
       //  - You don't actually want to submit the form so you'll have to 
       //    prevent the default behavior on the event when it fires.
@@ -30,23 +34,32 @@ class Home {
 
   /* Part 3 - Write the first version of onFormSubmit */
   onFormSubmit(event) {
-    // make sure the form is not submitted
-    // get the values from the form and store in a variable
-
-    /* call the validateRegistrationForm method 
-       pass variable from line above as a parameter.
-       It will return an object that you should store in a varable
-    */
-
-    // if the form is valid
-    //    clear the errors
-    //    call submitForm with the values from the form as a parameter
-    //    (only the stub for submitForm is written. You'll write it  
-    //     after testing validation and talking about the ajax call service)
-    // otherwise
-    //    clear all of the errors
-    //    highlight the errors
-    // end if
+      event.preventDefault();
+      // make sure the form is not submitted
+      // get the values from the form and store in a variable
+        this.dataIn=getFormValues();
+        let dataOut=validateRegistrationForm(dataIn);
+      /* call the validateRegistrationForm method 
+        pass variable from line above as a parameter.
+        It will return an object that you should store in a varable
+      */
+      if(dataOut.isValid==true)
+      {
+        submitForm(dataOut);
+        resetForm();
+        clearErrors();
+      }
+      else
+        highlightErrors(dataOut);
+      // if the form is valid
+      //    clear the errors
+      //    call submitForm with the values from the form as a parameter
+      //    (only the stub for submitForm is written. You'll write it  
+      //     after testing validation and talking about the ajax call service)
+      // otherwise
+      //    clear all of the errors
+      //    highlight the errors
+      // end if
   }
 
   /* Part 4 - Finish these 4 UI related methods */
@@ -57,13 +70,13 @@ class Home {
   */
   getFormValues() {
     return {
-      username: "",
-      email: "",
-      phone: "",
-      age: "",
-      profession: "",
+      username: this.$username.value,
+      email: this.$email.value,
+      phone: this.$phone.value,
+      age: this.$age.value,
+      profession: this.$profession.value,
       experience: parseInt(document.querySelector('input[name="experience"]:checked').value),
-      comment: "",
+      comment: this.$comment.value,
     };
   }
 
@@ -72,6 +85,10 @@ class Home {
   */
   resetForm() {
     this.$username.value = '';
+    this.$email.value='';
+    this.$age.value='';
+    this.$phone.value='';
+    this.$comment.value='';
     this.$profession.value = 'school';
     this.$experience.checked = true;
   }
@@ -81,7 +98,15 @@ class Home {
   */
   highlightErrors(result) {
     if(!result.username) {
-      this.$username.parentElement.classList.add('has-error');
+      this.$username.parentElement.classList.add('has-error');}
+    if(!result.email) {
+      this.$email.parentElement.classList.add('has-error');}
+    if(!result.age) {
+      this.$age.parentElement.classList.add('has-error');}
+    if(!result.profession) {
+      this.$profession.parentElement.classList.add('has-error');
+    if(!result.experience) {
+      this.$experience.parentElement.classList.add('has-error');}
     }
   }
 
@@ -89,7 +114,11 @@ class Home {
      It gets called after the form is validated.
   */
   clearErrors() {
+    this.$email.parentElement.classList.remove('has-error');
+    this.$age.parentElement.classList.remove('has-error');
+    this.$profession.parentElement.classList.remove('has-error');
     this.$username.parentElement.classList.remove('has-error');
+    this.$experience .parentElement.classList.remove('has-error');
   }
 
   /* TEST - Instantiate a Home object at bottom of file first */
@@ -99,6 +128,21 @@ class Home {
   /* Part 6 - Finish this function.  It makes the api call.  TEST */
   submitForm(formValues) {
 
+    this.$submit.style.visability='hidden';
+    this.$loadingIndicator.visability='visiable';
+    apiCall('/registration',formValues,'POST')
+      .then(response=>
+        {
+          this.$submit.classList.remove('hidden');
+          this.$loadingIndicator.classList.add('hidden');
+          toastr.success(response.message);
+          this.resetForm;
+        })
+        .catch(()=>{
+          this.$loadingIndicator.classList.remove('hidden');
+          this.$submit.classList.remove('hidden');
+          toastr.error('Error!');
+        });
     // hide the submit button
     // show the loading indicator
     /* call apiCall and
@@ -120,4 +164,4 @@ class Home {
 
 // add a window onload handler. 
 // It should create an (unnamed) instance of the class for this page
-
+window.onload=new Home();
