@@ -9,23 +9,23 @@ import '../../node_modules/toastr/toastr.less';
 
 class Home {
   constructor() {
-    /* Part 2 - Finish the constructor
-       - Add references to each of these elements on the page
+    //Part 2 - Finish the constructor
+      // - Add references to each of these elements on the page
           this.$form = 
-          this.$username = 
-          this.$email = 
-          this.$phone = 
-          this.$age = 
+          this.$username = document.getElementById('username');
+          this.$email = document.getElementById('email');
+          this.$phone = document.getElementById('phone');
+          this.$age = document.getElementById('')
           this.$profession = 
           this.$experience = 
           this.$comment = 
           this.$submit = 
           this.$loadingIndicator = 
-      - Add a sumbit handler to the form that calls onFormSubmit
-        - You don't actually want to submit the form so you'll have to 
-          prevent the default behavior on the event when it fires.
-          That means that you'll need the event as a parameter to onFormSubmit
-    */
+      //- Add a sumbit handler to the form that calls onFormSubmit
+      //  - You don't actually want to submit the form so you'll have to 
+      //    prevent the default behavior on the event when it fires.
+      //    That means that you'll need the event as a parameter to onFormSubmit
+    
   }
 
   /* Part 3 - Write the first version of onFormSubmit */
