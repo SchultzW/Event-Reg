@@ -62,7 +62,7 @@ function validatePhone(phone) {
 // to make sure that the age is a 2 digit number before checking the range.
 function validateAge(age) {
   const pattern=/^(1[0-1]\d|\d{1,2})$/;
-  if(age<=10&&age>=25)
+  if(age>=10&&age<=25)
   {
     return pattern.test(age);
   }
