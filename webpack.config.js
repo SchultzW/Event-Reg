@@ -13,6 +13,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 /**
  * flag Used to check if the environment is production or not
+ * process.env object witth constatn name node_env
  */
 const isProduction = (process.env.NODE_ENV === 'production');
 
