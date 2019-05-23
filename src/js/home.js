@@ -11,20 +11,23 @@ class Home {
   constructor() {
     //Part 2 - Finish the constructor
       // - Add references to each of these elements on the page
-          this.$form = document.getElementsByClassName('form-area');
+          this.$form = document.getElementById('registrationForm')
           this.$username = document.getElementById('username');
           this.$email = document.getElementById('email');
           this.$phone = document.getElementById('phone');
           this.$age = document.getElementById('age')
           this.$profession = document.getElementById('profession');
-          this.$experience = document.getElementById('expereince')
+          this.$experience = document.getElementById('experience')
           this.$comment = document.getElementById('comment')
           this.$submit = document.getElementById('submit');
-          this.$loadingIndicator = getElementById('loadingIndicator');
+          this.$loadingIndicator = document.getElementById('loadingIndicator');
           this.onFormSubmit=this.onFormSubmit.bind(this);
-          this.form.addEventListener('submit',event => {this.onFormSubmit(event);});
-          this.dataIn=this.dataIn.bind(this);
-          this.resetForm=this.bind(this);
+          this.$form.addEventListener('submit',event=>{
+            this.onFormSubmit(event);
+          });
+          
+          this.getFormValues=this.getFormValues.bind(this);
+          this.resetForm=this.resetForm.bind(this);
       //- Add a sumbit handler to the form that calls onFormSubmit
       //  - You don't actually want to submit the form so you'll have to 
       //    prevent the default behavior on the event when it fires.
@@ -37,7 +40,7 @@ class Home {
       event.preventDefault();
       // make sure the form is not submitted
       // get the values from the form and store in a variable
-        this.dataIn=getFormValues();
+        let dataIn=this.getFormValues();
         let dataOut=validateRegistrationForm(dataIn);
       /* call the validateRegistrationForm method 
         pass variable from line above as a parameter.
@@ -45,12 +48,12 @@ class Home {
       */
       if(dataOut.isValid==true)
       {
-        submitForm(dataOut);
-        resetForm();
-        clearErrors();
+        this.submitForm(dataOut);
+        this.resetForm();
+        this.clearErrors();
       }
       else
-        highlightErrors(dataOut);
+        this.highlightErrors(dataOut);
       // if the form is valid
       //    clear the errors
       //    call submitForm with the values from the form as a parameter
@@ -129,8 +132,8 @@ class Home {
   submitForm(formValues) {
 
     this.$submit.style.visability='hidden';
-    this.$loadingIndicator.visability='visiable';
-    apiCall('/registration',formValues,'POST')
+    this.$loadingIndicator.visability='visable';
+    apiCall('registration',formValues,'POST')
       .then(response=>
         {
           this.$submit.classList.remove('hidden');
@@ -139,7 +142,7 @@ class Home {
           this.resetForm;
         })
         .catch(()=>{
-          this.$loadingIndicator.classList.remove('hidden');
+          this.$loadingIndicator.classList.add('hidden');
           this.$submit.classList.remove('hidden');
           toastr.error('Error!');
         });
@@ -164,4 +167,4 @@ class Home {
 
 // add a window onload handler. 
 // It should create an (unnamed) instance of the class for this page
-window.onload=new Home();
+window.onload=()=>new Home();

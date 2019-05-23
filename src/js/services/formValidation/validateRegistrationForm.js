@@ -1,5 +1,6 @@
 // Notice the export statement and the import in home.js
 // Notice the structure of the parameter and the return value
+//default means its the only thing we are exporting
 export default function validateRegistrationForm(formValues) {
 
   const result = {
@@ -71,7 +72,7 @@ function validateAge(age) {
 
 // must be either school, college, trainee or employee.  No reg exp.
 function validateProfession(profession) {
-  if(profession=="school"||profession=="trainee"||profession=="employee")
+  if(profession=="school"||profession=="trainee"||profession=="employee"||profession=="college")
   return true;
   else
   return false;
