@@ -19,7 +19,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
-    "ajv": "^6.9.1",
+    "ajv": "^6.12.3",
     "atob": "^2.1.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.5",
